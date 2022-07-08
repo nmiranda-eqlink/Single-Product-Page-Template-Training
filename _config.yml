@@ -32,13 +32,13 @@ plugins:
 
 # Settings for your Storyblok space
 storyblok:
+  # token:   "ClrNFL4bMqHjd04VISSqtwtt"
+  # # Can be either `draft` or `published`
+  # version: draft
+
   token:   "ClrNFL4bMqHjd04VISSqtwtt"
   # Can be either `draft` or `published`
-  version: draft
-
-  # token:   "35spqqrCGR57Jpox32BzGgtt"
-  # # Can be either `draft` or `published`
-  # version: unpublished
+  version: published
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list

@@ -1,0 +1,192 @@
+{{blok._editable}}
+<section class="product-gallery-details">
+    <div class="container asd">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="product-gallery">
+            <div class="carousel-product carousel-gallery">
+              {% for image in blok.product_images %}
+                <div class="product-image-gallery-large carousel-cell w-100">
+                  <img class="img-fluid" src="{{image.filename}}" alt="{{image.alt}}">
+                </div>
+              {% endfor %}
+            </div>
+            
+            <div class="carousel-product-nav d-none d-md-block">
+              {% for image in blok.product_images %}
+                <div class="product-image-small {{ forloop.index }}" data-product-thumbnail="{{ forloop.index | minus: 1}}">
+                  <img class="img-fluid" src="{{image.filename}}" alt="{{image.alt}}">
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-5 offset-lg-1">
+          <div class="product-details d-flex flex-column d-md-block">
+            <span class="stock-status">{{ blok.stock_status }}</span>
+            <h1 class="product-title">{{ blok.product_title}}</h1>
+            <div class="product-review-stars">
+                {% for review in blok.product_reviews  %}
+                    {% assign totalReviews = forloop.length %}
+                    {% assign sum = sum | plus: review.star_rating %}
+                    {% assign totalRating = sum | divided_by: totalReviews | times: 10 %}
+                {% endfor %}
+
+                <div class="stars-wrapper">
+                    <span class="stars-active" style="width: {{ totalRating }}%">
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                    </span>
+                    <span class="stars-inactive">
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                    </span>
+                </div>
+
+                <span class="product-reviews-total">
+                    {{ totalReviews }}
+
+                    {% if totalReviews >= 1 %}
+                        Reviews
+                    {% else %}
+                        Review
+                    {% endif %}
+                </span>
+            </div>
+
+            <div class="product-pricing d-flex">
+              {% if blok.sale_price != '' %}
+                <div class="product-price sale-price" data-value="{{ blok.sale_price }}">${{ blok.sale_price }}</div>
+                <div class="product-price original-price product-sale-active" data-value="{{ blok.price }}">${{ blok.price }}</div>
+                <div class="product-pricing-save"></div>
+                {% endif %}
+              
+              {% if blok.price != '' and blok.sale_price == '' %}
+                  <div class="product-price" data-value="{{ blok.price }}">${{ blok.price }}</div>
+              {% endif %}
+            </div>
+
+            <div class="product-variants d-flex">
+              {% for product_variants in blok.product_variants %}
+                {% assign product_variant_name = product_variants.component %}
+              {% endfor %}
+              
+              <div class="product-variant-title align-self-center">{{ product_variant_name }}</div>
+              <ul class="product-variants-body list-unstyled list-inline m-0">
+                {% for product_variants in blok.product_variants %}
+                  <li class="product-variant color list-inline-item" data-variant-name="{{ product_variants.name }}" data-index="{{ forloop.index | minus: 1 }}" title="{{ product_variants.name }}">
+                    <span style="background: {{product_variants.value}}">{{ product_variants.name }}</span>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+
+            <div class="product-quantity d-flex">
+              <div class="product-quantity-label d-none d-md-block">QTY</div>
+              <div class="qty-button-wrapper d-flex">
+                <button class="btn qty-button minus">-</button>
+                <input type="text" name="qty" class="quantity" maxlength="2" value="1">
+                <button class="btn qty-button plus">+</button>
+              </div>
+            </div>
+
+            <div class="product-info text-md-left">
+              <strong>Handcrafted Material</strong> / Ships from United States  
+            </div>
+            
+            <button class="btn cta-button">
+              <span class="cta-button-text">Add to Cart</span>
+              <span class="cta-button-icon">
+                <svg aria-hidden="true" focusable="false" role="presentation" width="26" height="26" viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg">
+                  <g fill-rule="nonzero" fill="currentColor">
+                    <path d="M13 26C5.82 26 0 20.18 0 13S5.82 0 13 0s13 5.82 13 13-5.82 13-13 13zm0-3.852a9.148 9.148 0 1 0 0-18.296 9.148 9.148 0 0 0 0 18.296z" opacity=".29"></path><path d="M13 26c7.18 0 13-5.82 13-13a1.926 1.926 0 0 0-3.852 0A9.148 9.148 0 0 1 13 22.148 1.926 1.926 0 0 0 13 26z"></path>
+                  </g>
+                </svg>
+              </span>
+            </button>
+
+            <div class="payment-options">
+              <ul class="list-unstyled list-inline m-0">
+                <li class="list-inline-item m-0">
+                  <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/icons8-visa.svg?v=1608676269" alt="">
+                </li>
+                <li class="list-inline-item m-0">
+                  <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/icons8-mastercard.svg?v=1608676269" alt="">
+                </li>
+                <li class="list-inline-item m-0">
+                  <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/icons8-paypal.svg?v=1608676269" alt="">
+                </li>
+                <li class="list-inline-item m-0">
+                  <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/icons8-american_express.svg?v=1608676269" alt="">
+                </li>
+                <li class="list-inline-item m-0">
+                  <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/icons8-shopify.svg?v=1608680966" alt="">
+                </li>
+                <li class="list-inline-item m-0">
+                  <img src="https://cdn.shopify.com/s/files/1/0349/3311/2968/files/layer1.svg?v=1608681005" alt="">
+                </li>
+              </ul>
+            </div>
+            
+            <div class="product-accordion accordion-flush" id="accordionFlush">
+                {% for blok in blok.product_accordion %}
+                    <div class="accordion-item">
+                        <div class="accordion-header" id="flush-heading-{{ forloop.index }}">
+                          <button id="#flush-collapse-{{ forloop.index }}" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-{{ forloop.index }}" aria-expanded="false" aria-controls="flush-collapse-{{ forloop.index }}">
+                              {{ blok.accordion_title }}
+                          </button>
+                        </div>
+
+                        <div id="flush-collapse-{{ forloop.index }}" class="accordion-collapse collapse" aria-labelledby="flush-heading{{ forloop.index }}" data-bs-parent="#accordionFlush">
+                          <div class="accordion-body">{{ blok.accordion_content }}</div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+
+      .product-review-stars {
+        align-items: center;
+        display: flex;
+      }
+
+      .stars-wrapper {
+        display: inline-block;
+        height: 25px;
+        position: relative;
+        margin-right: 12px;
+        overflow: hidden;
+      }
+
+      .stars-wrapper .fa-star {
+          font-size: 18px;
+      }
+
+      .stars-active {
+        color: #CF9C56;
+        position: relative;
+        z-index: 10;
+        display: inline-block;
+      }
+
+      .stars-inactive {
+        color: rgba(207, 156, 86, .30);
+        position: absolute;
+        top: 0;
+        left: 0;
+        -webkit-text-stroke: initial;
+        overflow: hidden;
+      }
+  </style>

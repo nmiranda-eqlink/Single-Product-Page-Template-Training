@@ -1,0 +1,6 @@
+# Settings for your Storyblok space
+storyblok:
+
+  token:   "ZcMEOkvAADOAEsn78khUoQtt"
+  # Can be either `draft` or `published`
+  version: published
